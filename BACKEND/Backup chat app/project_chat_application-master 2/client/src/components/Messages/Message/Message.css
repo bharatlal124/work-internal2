@@ -1,0 +1,155 @@
+/* .messageBox {
+  background: #F3F3F3;
+  border-radius: 0px 20px 20px;
+  padding: 1px 10px;
+  color: white;
+  display: inline-block;
+  max-width: 80%;
+} */
+.messageBox {
+  background:#F3F3F3;  
+  border-radius: 0px 15px 15px 10px;  
+  padding: 8px 12px;  
+  color: black;  
+  display: inline-block;
+  max-width: 60%;
+  position: relative;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+ 
+.messageBox::after {
+  content: "";
+  position: absolute;
+  /* bottom: 51px; */
+  top: -10px;
+  left: -5px;  
+  width: 20px;
+  height: 20px;
+  background:#F3F3F3;
+  rotate: 223deg;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.messageBox2 {
+  /* background:#F3F3F3;   */
+  border-radius: 15px 0px 10px 15px;  
+  padding: 8px 12px;  
+  color: black;  
+  display: inline-block;
+  max-width: 60%;
+  position: relative;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+ 
+.messageBox2::after {
+  content: "";
+  position: absolute;
+  display: flex; 
+  justify-content: flex-end !important;
+  /* bottom: 51px;  */
+  top: -10px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  background:#2979FF;
+  rotate: 223deg;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+
+.messageText {
+  width: 100%;
+  letter-spacing: 0;
+  float: left;
+  font-size: 16px;
+  word-wrap: break-word;
+  margin: 5px;
+}
+
+.messageText img {
+  vertical-align: middle;
+}
+
+.messageContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 5%;
+  margin-top: 3px;
+  /* flex-direction: column; */
+}
+
+.sentText {
+  display: flex;
+  align-items: center;
+  font-family: Helvetica;
+  color: #a1a1a1;
+  letter-spacing: 0.3px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: lighter;
+}
+.messageBox2 .sentText{
+  color: white;
+  opacity: 0.5;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
+  font-weight: lighter;
+}
+.pl-10 {
+  padding-left: 10px;
+}
+
+.pr-10 {
+  padding-right: 10px;
+}
+
+.justifyStart {
+  justify-content: flex-start;
+}
+
+.justifyEnd {
+  justify-content: flex-end !important;
+}
+
+.colorWhite {
+  color: white;
+}
+
+.colorDark {
+  color: #353535;
+}
+
+.backgroundBlue {
+  background: #2979FF;
+}
+
+.backgroundLight {
+  background: #F3F3F3;
+}
+
+.glassMessageBox {
+  /* background: rgba(255, 255, 255, 0.15);   */
+  border-radius: 15px;
+  padding: 12px 16px;
+  color: #353535;
+  /* max-width: 60%; */
+  /* position: relative; */
+  /* font-size: 14px; */
+  word-wrap: break-word;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.sentGlass {
+  align-self: flex-end;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  /* background: rgba(41, 121, 255, 0.15);   */
+}
+ 
+.receivedGlass {
+  align-self: flex-start;
+  /* background: rgba(243, 243, 243, 0.15);   */
+}  

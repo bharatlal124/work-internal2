@@ -1,0 +1,256 @@
+My frontend file structure and code :
+App.js :
+import React from 'react';
+
+import Chat from './components/Chat/Chat';
+import Join from './components/Join/Join';
+
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+const App = () => {
+  return (
+    <Router>
+      <Route path="/" exact component={Join} />
+      <Route path="/chat" component={Chat} />
+    </Router>
+  );
+}
+
+export default App;
+
+
+/api/api.js :
+import axios from "axios";
+
+const fetchData = async () => {
+  const controller = new AbortController();
+  try {
+    const response = await axios.get("http://localhost:5000/", {
+      signal: controller.signal,
+    });
+    console.log(response.data);
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request canceled:", error.message);
+    } else {
+      console.error("API Error:", error);
+    }
+  }
+};
+
+/components/Chat/Chat.js :
+import React, { useState, useEffect } from "react";
+import queryString from 'query-string';
+import io from "socket.io-client";
+
+import TextContainer from '../TextContainer/TextContainer';
+import Messages from '../Messages/Messages';
+import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
+
+import './Chat.css';
+
+// const ENDPOINT = 'https://project-chat-application.herokuapp.com/';
+// const ENDPOINT = 'ws://localhost:5000/';
+const ENDPOINT = 'https://real-time-chat-app-cisd.onrender.com/';
+
+let socket;
+
+const Chat = ({ location }) => {
+  const [name, setName] = useState('');
+  const [room, setRoom] = useState('');
+  const [users, setUsers] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const { name, room } = queryString.parse(location.search);
+
+    socket = io(ENDPOINT);
+
+    setRoom(room);
+    setName(name)
+
+    socket.emit('join', { name, room }, (error) => {
+      if(error) {
+        alert(error); 
+      }
+    });
+  }, [ENDPOINT, location.search]);
+  
+  useEffect(() => {
+    socket.on('message', message => {
+      setMessages(messages => [ ...messages, message ]);
+    });
+    
+    socket.on("roomData", ({ users }) => {
+      setUsers(users);
+    });
+}, []);
+
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if(message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
+    }
+  }
+
+  return (
+    <div className="outerContainer">
+      <div className="container">
+          <InfoBar room={room} />
+          <Messages messages={messages} name={name} />
+          <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+      </div>
+      <TextContainer users={users}/>
+    </div>
+  );
+}
+
+export default Chat;
+
+
+/components/InfoBar/InfoBar.js :
+import React from 'react';
+
+import onlineIcon from '../../icons/onlineIcon.png';
+import closeIcon from '../../icons/closeIcon.png';
+
+import './InfoBar.css';
+
+const InfoBar = ({ room }) => (
+  <div className="infoBar">
+    <div className="leftInnerContainer">
+      <img className="onlineIcon" src={onlineIcon} alt="online icon" />
+      <h3>{room}</h3>
+    </div>
+    <div className="rightInnerContainer">
+      <a href="/"><img src={closeIcon} alt="close icon" /></a>
+    </div>
+  </div>
+);
+
+export default InfoBar;
+
+/components/Input/Input.js :
+import React from 'react';
+
+import './Input.css';
+
+const Input = ({ setMessage, sendMessage, message }) => (
+  <form className="form">
+    <input
+      className="input"
+      type="text"
+      placeholder="Type a message..."
+      value={message}
+      onChange={({ target: { value } }) => setMessage(value)}
+      onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
+    />
+    <button className="sendButton" onClick={e => sendMessage(e)}>Send</button>
+  </form>
+)
+
+export default Input;
+
+
+/components/Join/Join.js :
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+
+import './Join.css';
+
+export default function SignIn() {
+  const [name, setName] = useState('');
+  const [room, setRoom] = useState('');
+
+  return (
+    <div className="joinOuterContainer">
+      <div className="joinInnerContainer">
+        <h1 className="heading">Join</h1>
+        <div>
+          <input placeholder="Name" className="joinInput" type="text" onChange={(event) => setName(event.target.value)} />
+        </div>
+        <div>
+          <input placeholder="Room" className="joinInput mt-20" type="text" onChange={(event) => setRoom(event.target.value)} />
+        </div>
+        <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/chat?name=${name}&room=${room}`}>
+          <button className={'button mt-20'} type="submit">Sign In</button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+
+/components/Messages/Message/Message.js :
+import React from 'react';
+
+import './Message.css';
+
+import ReactEmoji from 'react-emoji';
+
+const Message = ({ message: { text, user }, name }) => {
+  let isSentByCurrentUser = false;
+
+  const trimmedName = name.trim().toLowerCase();
+
+  if(user === trimmedName) {
+    isSentByCurrentUser = true;
+  }
+
+  return (
+    isSentByCurrentUser
+      ? (
+        <div className="messageContainer justifyEnd">
+          {/* <p className="sentText pr-10">{trimmedName}</p> */}
+          <div className="messageBox2 backgroundBlue glassMessageBox sentGlass">
+          <p className="sentText  ">{trimmedName}</p>
+            <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
+          </div>
+        </div>
+        )
+        : (
+          <div className="messageContainer justifyStart">
+             
+            <div className="messageBox backgroundLight glassMessageBox receivedGlass">
+            <p className="sentText   ">{user}</p>
+              <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+            </div>
+            {/* <p className="sentText pl-10 ">{user}</p> */}
+          </div>
+        )
+  );
+}
+
+export default Message;
+
+
+
+/components/Messages/Messages.js :
+import React from 'react';
+
+import ScrollToBottom from 'react-scroll-to-bottom';
+
+import Message from './Message/Message';
+
+import './Messages.css';
+
+const Messages = ({ messages, name }) => (
+  <ScrollToBottom className="messages">
+    {messages.map((message, i) => <div key={i}><Message message={message} name={name}/></div>)}
+  </ScrollToBottom>
+);
+
+export default Messages;
+
+
+
+index.js :
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
