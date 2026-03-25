@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSO Premium Section</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero-section-premium {
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: #ccc;
+      margin: 15px 0 25px;
+    }
+
+    .hero-btn {
+      background-color: #ff5c5c;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .hero-btn:hover {
+      background-color: #ff3b3b;
+    }
+
+    /* Right Image Box */
+    .image-box {
+      position: relative;
+      display: inline-block;
+    }
+
+    .image-bg {
+      background-color: #ff5c5c;
+      width: 260px;
+      height: 340px;
+      border-radius: 12px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1;
+    }
+
+    .hero-img {
+      position: relative;
+      z-index: 2;
+      width: 260px;
+      border-radius: 10px;
+    }
+
+    /* Bottom floating button */
+    .floating-btn {
+      position: absolute;
+      bottom: 40px;
+      right: 80px;
+      background-color: #ff5c5c;
+      color: #fff;
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .image-bg,
+      .hero-img {
+        width: 200px;
+        height: auto;
+      }
+
+      .floating-btn {
+        position: static;
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="hero-section-premium">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Left Content -->
+      <div class="col-md-6">
+        <h1 class="hero-title">MSO Premium</h1>
+        <p class="hero-subtitle">
+          Built for students aiming for Top 1% universities
+        </p>
+        <p class="mb-4">We are your personal study abroad navigators</p>
+        <button class="hero-btn">Book your slot now</button>
+      </div>
+
+      <!-- Right Image -->
+      <div class="col-md-6 text-center position-relative">
+        <div class="image-box">
+          <div class="image-bg"></div>
+          <img src="./main-image.png" alt="Student" class="hero-img">
+        </div>
+      </div>
+
+    </div>
+  </div>
+ 
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>University Slider</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <style>
+    body {
+      background: #000;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .university-section {
+      padding: 60px 0;
+    }
+
+    .swiper {
+      padding: 10px 0;
+    }
+
+    .swiper-slide {
+      width: auto;
+    }
+
+    .card-custom {
+      width: 260px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #111;
+      transition: 0.3s;
+    }
+
+    .card-custom:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .card-bottom {
+      background: #f5f5f5;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 70px;
+    }
+
+    .card-bottom img {
+      max-height: 40px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* Remove arrows */
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: none;
+    }
+
+    /* Smooth grab scroll */
+    .swiper {
+      cursor: grab;
+    }
+
+    .swiper:active {
+      cursor: grabbing;
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="university-section">
+  <div class="container-fluid">
+
+    <div class="swiper universitySwiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="card-custom">
+            <img src="https://images.unsplash.com/photo-1562774053-701939374585" class="card-img">
+            <div class="card-bottom">
+              <img src="https://upload.wikimedia.org/wikipedia/en/1/1b/Columbia_University_logo.svg">
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="card-custom">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" class="card-img">
+            <div class="card-bottom">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/HEC_Paris.svg">
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="card-custom">
+            <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad" class="card-img">
+            <div class="card-bottom">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/INSEAD_logo.svg">
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide">
+          <div class="card-custom">
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d" class="card-img">
+            <div class="card-bottom">
+              <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Imperial_College_London_logo.svg">
+            </div>
+          </div>
+        </div>
+
+        <!-- Duplicate for smooth scroll -->
+        <div class="swiper-slide">
+          <div class="card-custom">
+            <img src="https://images.unsplash.com/photo-1562774053-701939374585" class="card-img">
+            <div class="card-bottom">
+              <img src="https://upload.wikimedia.org/wikipedia/en/1/1b/Columbia_University_logo.svg">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- ============= FAQ section ============== -->
+
+
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  const swiper = new Swiper(".universitySwiper", {
+    slidesPerView: 4.4,
+    spaceBetween: 20,
+    loop: true,
+    speed: 4000,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+    },
+    freeMode: true,
+    freeModeMomentum: false,
+  });
+</script>
+ 
+</body>
+</html>

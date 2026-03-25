@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mega Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    /* Base */
+body {font-family: 'Poppins', sans-serif; background: #f8f9fc;}
+/* Navbar */
+.navbar {backdrop-filter: blur(10px);}
+.navbar-collapse{justify-content: end;}
+/* Nav Links */
+.navbar-nav .nav-link {font-weight: 500;padding: 18px 22px;position: relative;transition: 0.3s;}
+/* Underline animation */
+/* .nav-link::after {content: ""; position: absolute; bottom: 10px; left: 15px; width: 0%; height: 3px; background: linear-gradient(90deg, #002A54, #106093);transition: 0.3s ease;    } */
+/* .nav-link:hover::after {width: 60%;} */
+/* Mega Menu Wrapper */
+.mega-menu {position: static; display: flex; align-items: center; justify-content: center; padding-left: 5px;}
+/* Mega Dropdown */
+.mega-dropdown {position: absolute;left: 0;right: 0;top: 100%;width: 100%;border: none;border-radius: 20px;padding: 40px 30px;opacity: 0;visibility: hidden;transform: translateY(30px) scale(0.98);transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);display: block;background: rgba(255, 255, 255, 0.85);backdrop-filter: blur(20px);box-shadow: 0 20px 60px rgba(0,0,0,0.08);}
+/* Show dropdown */
+.mega-menu:hover .mega-dropdown {opacity: 1;visibility: visible;transform: translateY(0) scale(1); border-radius: unset; border-top: 2px solid #106093;}
+.mega-menu .color-main.active{ color: #002A54; border-radius: 6px;padding: 6px 10px;display: flex;align-items: center;justify-content: center;}
+
+.mega-menu .dropdown-toggle:hover{ border-radius: 6px;  color: #002A54; }
+/* Headings */
+.mega-dropdown h6 {font-weight: 600;margin-bottom: 15px;font-size: 14px; color:  #106093;letter-spacing: 0.5px;}
+/* List items */
+.mega-dropdown ul li {padding: 8px 0;cursor: pointer;transition: all 0.25s ease;color: #333;}
+.mega-dropdown ul li:hover {color:  #106093;transform: translateX(6px);}
+/* CTA box */
+.mega-dropdown .btn { margin-top: 10px; border-radius: 30px; padding: 6px 18px;}
+/* Tabs Left Side */
+.nav-pills .nav-link {text-align: left;border-radius: 5px; padding: 6px 10px; margin-bottom: 5px;color: #444;transition: all 0.3s ease;}
+/* Active Tab */
+.nav-pills .nav-link.active {background: #002a5430; color: #000; border-radius: 20px;}
+/* Hover Tab */
+.nav-pills .nav-link:hover { background: #002a5430; color: #000; border-radius: 20px; transform: translateX(5px);}
+/* Right Content */
+.tab-content h6 {font-weight: 600; margin-bottom: 15px;}
+.tab-content a { display: inline-block; margin-bottom: 8px; color: #333; text-decoration: none; transition: 0.25s; position: relative;}
+/* Link hover animation */
+.tab-content a::after {content: ""; position: absolute; left: 0; bottom: -2px; width: 0%; height: 1px; background: #106093; transition: 0.3s;}
+.tab-content a:hover { color:  #106093;}
+.tab-content a:hover::after {width: 100%;}
+
+/* Smooth tab fade */
+.tab-pane {animation: fadeIn 0.3s ease;}
+@keyframes fadeIn {
+  from {opacity: 0;transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.below-navbar{display: none; border-top: 1px solid #106093; }
+.below-navbar-2{display: none; border-top: 1px solid #106093; }
+.below-navbar-3{display: none; border-top: 1px solid #106093; }
+.tab-content .tab-pane .design-links{ display: flex; flex-direction: row; gap: 30px;}
+#menuTabs{border-right: 1px solid #cccc; padding-right: 20px;}
+
+/* Cards design  */
+.custom-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #106093;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.custom-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  transition: 0.4s ease;
+}
+
+.card-content {
+  padding: 16px;
+  color: #fff;
+}
+
+.card-content h5 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #b0b3c0;
+  margin: 0;
+}
+
+/* Hover Effect */
+.custom-card:hover {
+  transform: translateY(-6px);
+}
+
+.custom-card:hover img {
+  transform: scale(1.05);
+}
+
+.custom-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,42,84,0.7), transparent);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.custom-card:hover::after {
+  opacity: 1;
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Nians</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+
+        <!-- Mega Menu Item -->
+        <li class="nav-item dropdown mega-menu">
+          <a class="nav-link nav-show color-main dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Digital Marketing</a>
+        </li>
+
+        <li class="nav-item dropdown mega-menu">
+          <a class="nav-link nav-show2 color-main dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Odoo</a>
+        </li>
+
+        <li class="nav-item dropdown mega-menu">
+          <a class="nav-link nav-show3 color-main dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">E-commerce</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link nav-show4 color-main" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-show5 color-main" href="#">Resources</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-show6 color-main" href="#">Support</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Another navbar [Digital Marketing] -->
+ <div class="navbar navbar-expand-lg below-navbar bg-white shadow-sm">
+  <div class="container">
+    <!-- <a class="navbar-brand fw-bold" href="#">Nians</a> -->
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+
+        <!-- Mega Menu Item -->
+        <!-- <li class="nav-item dropdown mega-menu">
+          <a class="nav-link" href="#">Agency</a>
+
+          <div class="dropdown-menu mega-dropdown">
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+              style="background: radial-gradient(circle at top left, rgba(108,99,255,0.08), transparent); pointer-events:none;">
+            </div>
+
+            <div class="container">
+              <div class="row">
+
+                <div class="col-lg-3">
+                  <h6>FEATURES</h6>
+                  <ul class="list-unstyled">
+                    <li>Workflow Builder</li>
+                    <li>Automation</li>
+                    <li>Goals & Reporting</li>
+                  </ul>
+                </div>
+
+                <div class="col-lg-3">
+                  <h6>USE CASES</h6>
+                  <ul class="list-unstyled">
+                    <li>Marketing</li>
+                    <li>Operations</li>
+                    <li>IT</li>
+                  </ul>
+                </div>
+
+                <div class="col-lg-3">
+                  <h6>RESOURCES</h6>
+                  <ul class="list-unstyled">
+                    <li>Templates</li>
+                    <li>Guides</li>
+                    <li>Help Center</li>
+                  </ul>
+                </div>
+
+                <div class="col-lg-3">
+                  <h6>GET STARTED</h6>
+                  <p class="small">Start managing your work efficiently with Asana.</p>
+                  <button class="btn btn-dark btn-sm">Try for free</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </li> -->
+
+        <!-- 1st list -->
+        <li class="nav-item dropdown mega-menu">
+          <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Agency</a>
+
+          <div class="dropdown-menu mega-dropdown">
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+              style="background: radial-gradient(circle at top left, rgba(108,99,255,0.08), transparent); pointer-events:none;">
+            </div>
+
+            <div class="container-fluid">
+          <div class="row">
+
+            <!-- LEFT SIDE (Tabs) -->
+            <div class="col-md-4">
+              <div class="nav flex-column nav-pills" id="menuTabs" role="tablist">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#cat1">Organic Growth</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat2">Paid Media & Acquisition </button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat3">Conversation & Performance</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat4">Social & Brand Growth</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat5">Retention & Engagement</button>
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE (Content) -->
+            <div class="col-md-8">
+  <div class="tab-content">
+
+    <!-- Category 1 -->
+    <div class="tab-pane fade show active" id="cat1">
+      <div class="row g-4">
+          <h5>Organic Growth </h5>
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc" alt="">
+            <div class="card-content">
+              <h5>SEO</h5>
+              <p>Boost your local presence and attract nearby customers.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1557838923-2985c318be48" alt="">
+            <div class="card-content">
+              <h5>Local SEO</h5>
+              <p>Boost your local presence and attract nearby customers.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702" alt="">
+            <div class="card-content">
+              <h5>E-commerce SEO</h5>
+              <p>Optimize product pages to drive more online sales.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Category 2 -->
+    <div class="tab-pane fade" id="cat2">
+      <div class="row g-4">
+        <h5>Paid Media & Acquisition</h5>
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" alt="">
+            <div class="card-content">
+              <h5>PPC Ads Management</h5>
+              <p>Run high-converting paid campaigns for instant traffic.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            <div class="card-content">
+              <h5>Sarch Engine Marketing</h5>
+              <p>Drive targeted traffic using search engine marketing.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Category 3 -->
+    <div class="tab-pane fade" id="cat3">
+      <div class="row g-4">
+        <h5>Conversation & Performance</h5>
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" alt="">
+            <div class="card-content">
+              <h5>CRO Services</h5>
+              <p>Run high-converting paid campaigns for instant traffic.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            <div class="card-content">
+              <h5>Lead Generation</h5>
+              <p>Drive targeted traffic using search engine marketing.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Category 4 -->
+    <div class="tab-pane fade" id="cat4">
+      <div class="row g-4">
+        <h5>Social & Brand Growth</h5>
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" alt="">
+            <div class="card-content">
+              <h5>Social Media Marketing</h5>
+              <p>Run high-converting paid campaigns for instant traffic.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            <div class="card-content">
+              <h5>Influencer Marketing</h5>
+              <p>Drive targeted traffic using search engine marketing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            <div class="card-content">
+              <h5>UGC Agency</h5>
+              <p>Drive targeted traffic using search engine marketing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            <div class="card-content">
+              <h5>ORM Services</h5>
+              <p>Drive targeted traffic using search engine marketing.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Category 5 -->
+    <div class="tab-pane fade" id="cat5">
+      <div class="row g-4">
+        <h5>Retention & Engagement</h5>
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" alt="">
+            <div class="card-content">
+              <h5>Email Marketing</h5>
+              <p>Run high-converting paid campaigns for instant traffic.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="custom-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="">
+            <div class="card-content">
+              <h5>Mobile Marketing</h5>
+              <p>Drive targeted traffic using search engine marketing.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Add same structure for other tabs -->
+
+  </div>
+</div>
+
+          </div>
+          </div>
+          </div>
+        </li>
+
+        <!-- 2nd list -->
+       <li class="nav-item dropdown mega-menu">
+          <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Studio </a>
+
+          <div class="dropdown-menu mega-dropdown">
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+              style="background: radial-gradient(circle at top left, rgba(108,99,255,0.08), transparent); pointer-events:none;">
+            </div>
+
+            <div class="container-fluid">
+          <div class="row">
+
+            <!-- LEFT SIDE (Tabs) -->
+            <div class="col-md-4">
+              <div class="nav flex-column nav-pills" id="menuTabs" role="tablist">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#cat6">Media Production </button> 
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE (Content) -->
+            <div class="col-md-8">
+              <div class="tab-content">
+
+                <!-- Category 1 -->
+                <div class="tab-pane fade show active" id="cat6">
+                  <h6>Media Production  </h6>
+                  <div class="design-links">
+                  <a href="#">Product Photography</a><br>
+                  <a href="#">Video Production</a>
+                </div>               
+               </div>
+
+              </div>
+            </div>
+
+          </div>
+          </div>
+          </div>
+        </li>
+
+        <!-- 3rd list --> 
+       <li class="nav-item dropdown mega-menu">
+          <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Technology </a>
+
+          <div class="dropdown-menu mega-dropdown">
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+              style="background: radial-gradient(circle at top left, rgba(108,99,255,0.08), transparent); pointer-events:none;">
+            </div>
+
+            <div class="container-fluid">
+          <div class="row">
+
+            <!-- LEFT SIDE (Tabs) -->
+            <div class="col-md-4">
+              <div class="nav flex-column nav-pills" id="menuTabs" role="tablist">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#cat7">Web Apps </button> 
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat8">App & Cloud Solutions </button> 
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE (Content) -->
+            <div class="col-md-8">
+              <div class="tab-content">
+
+                <!-- Category 1 -->
+                <div class="tab-pane fade show active" id="cat7">
+                  <h6>Web Apps  </h6>
+                  <div class="design-links"> 
+                  <a href="#">Website Development</a><br>
+                  <a href="#">Wordpress Development</a><br>
+                  <a href="#">Website Design</a><br>
+                  <a href="#">UI/UX Design</a>
+                  </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="tab-pane fade" id="cat8">
+                  <h6>App & Cloud Solutions  </h6>
+                  <div class="design-links"> 
+                  <a href="#">Mobile Apps Development</a><br>
+                  <a href="#">loud Apps Development</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          </div>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown mega-menu">
+          <a class="nav-link" href="#">Case Studies</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Another navbar [ODOO] -->
+ <div class="navbar navbar-expand-lg below-navbar-2 bg-white shadow-sm">  
+  <div class="container">
+    <!-- <a class="navbar-brand fw-bold" href="#">Nians</a> -->
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+
+        <!-- 1st list -->
+        <li class="nav-item dropdown mega-menu ">
+          <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Odoo</a>
+
+          <div class="dropdown-menu mega-dropdown">
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+              style="background: radial-gradient(circle at top left, rgba(108,99,255,0.08), transparent); pointer-events:none;">
+            </div>
+
+            <div class="container-fluid">
+          <div class="row">
+
+            <!-- LEFT SIDE (Tabs) -->
+            <div class="col-md-4">
+              <div class="nav flex-column nav-pills" id="menuTabs" role="tablist">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#cat21">Core Services</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat22">Platform Support</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat23">Training & Advisory</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat24">Talent</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat25">Core Modules</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat26">Finance Modules</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat27">HR Modules</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat28">Commerce & Website</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat29">CRM Tools</button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat30">Support Tools</button>
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE (Content) -->
+            <div class="col-md-8">
+              <div class="tab-content">
+
+                <!-- Category 1 -->
+                <div class="tab-pane fade show active" id="cat21">
+                  <h6>Core Services </h6>
+                  <div class="design-links"> 
+                    <div class="design-links"> 
+                  <a href="#">Odoo Implementation</a><br>
+                  <a href="#">Odoo Customization</a><br>
+                  <a href="#">Odoo Development</a>
+                  </div>
+                  </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="tab-pane fade" id="cat22">
+                  <h6>Platform Support</h6>
+                  <div class="design-links"> 
+                   <a href="#">Odoo Hosting</a><br>
+                  <a href="#">Odoo Maintenance</a><br> 
+                  </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="tab-pane fade" id="cat23">
+                  <h6>Training & Advisory</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo Training</a><br>
+                  <a href="#">Odoo Consulting</a>
+                  </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="tab-pane fade" id="cat24">
+                  <h6>Talent</h6>
+                  <div class="design-links">
+                  <a href="#">Hire Odoo Developer</a><br> 
+                  </div>
+                </div>
+                <!-- Category 5 -->
+                <div class="tab-pane fade" id="cat25">
+                  <h6>Core Modules</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo CRM </a><br>
+                  <a href="#">Odoo Sales Management</a> 
+                  <a href="#">Odoo Purchases</a> 
+                  <a href="#">Odoo Project Management</a> 
+                  </div>
+                </div>
+                <!-- Category 6 -->
+                <div class="tab-pane fade" id="cat26">
+                  <h6>Finance Modules</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo Accounting</a><br>
+                  <a href="#">Odoo Expenses</a> 
+                  <a href="#">Odoo Budget</a>  
+                  </div>
+                </div>
+                <!-- Category 7 -->
+                <div class="tab-pane fade" id="cat27">
+                  <h6>HR Modules</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo HR Management</a><br>
+                  <a href="#">Odoo Payroll</a> 
+                  <a href="#">Hire Odoo  Developer</a> 
+                  </div>
+                </div>
+                <!-- Category 8 -->
+                <div class="tab-pane fade" id="cat28">
+                  <h6>Commerce & Website</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo POS</a><br>
+                  <a href="#">Odoo E-commerce</a> 
+                  <a href="#">Odoo Website</a> 
+                  </div>
+                </div>
+                <!-- Category 9 -->
+                <div class="tab-pane fade" id="cat29">
+                  <h6>CRM Tools</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo Email Marketing</a><br> 
+                  </div>
+                </div>
+                <!-- Category 10 -->
+                <div class="tab-pane fade" id="cat30">
+                  <h6>Support Tools</h6>
+                  <div class="design-links"> 
+                  <a href="#">Odoo Helpdesk</a><br> 
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          </div>
+          </div>
+        </li>
+
+        <!-- 2nd list -->
+       <li class="nav-item dropdown mega-menu">
+          <a class="nav-link" href="#">Case Studies </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- Another navbar [E-commerce] -->
+ <div class="navbar navbar-expand-lg below-navbar-3 bg-white shadow-sm">  
+  <div class="container">
+    <!-- <a class="navbar-brand fw-bold" href="#">Nians</a> -->
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+
+        <!-- 1st list -->
+         <li class="nav-item dropdown mega-menu">
+          <a class="nav-link" href="#">E-commerce</a>
+        </li>
+        <!-- 2nd list -->
+        <li class="nav-item dropdown mega-menu">
+          <div class="dropdown">
+            <a class=" btn-secondary nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Market Place</a>
+            
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Marketplace Management</a></li>
+              <li><a class="dropdown-item" href="#">Amazon Marketing</a></li>
+              <li><a class="dropdown-item" href="#">Flipkart Marketing</a></li>
+            </ul>
+          </div>
+          <!-- <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" href="#">Market Place</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul> -->
+        </li>
+
+        <!-- 3rd list -->
+       <li class="nav-item dropdown mega-menu">
+          <div class="dropdown">
+            <a class=" btn-secondary nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Quick Commerce</a>
+            
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Blinkit Marketing</a></li> 
+            </ul>
+          </div> 
+        </li>
+
+        <!-- 4th list -->
+        <li class="nav-item dropdown mega-menu">
+          <div class="dropdown">
+            <a class=" btn-secondary nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">D2C Platform</a>
+            
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Shopify Management</a></li> 
+              <li><a class="dropdown-item" href="#">E_Commerce Marketing</a></li> 
+              <li><a class="dropdown-item" href="#">E-Commerce SEO</a></li> 
+              <li><a class="dropdown-item" href="#">CRO</a></li> 
+            </ul>
+          </div> 
+        </li>
+
+        <!-- 5th list -->
+        <li class="nav-item dropdown mega-menu">
+          <div class="dropdown">
+            <a class=" btn-secondary nav-link" data-bs-toggle="dropdown" aria-expanded="false">Case Studies</a>
+            
+          </div> 
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const menuLinks = document.querySelectorAll('.nav-show');
+  const menuLinks2 = document.querySelectorAll('.nav-show2');
+  const menuLinks3 = document.querySelectorAll('.nav-show3');
+
+  const belowNavbar = document.querySelector('.below-navbar');
+  const belowNavbar2 = document.querySelector('.below-navbar-2');
+  const belowNavbar3 = document.querySelector('.below-navbar-3');
+
+  function removeActive() {
+    document.querySelectorAll('.nav-show, .nav-show2, .nav-show3').forEach(el => {
+      el.classList.remove('active');
+    });
+  }
+
+  // FIRST MENU
+  menuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const isOpen = belowNavbar.style.display === 'block';
+
+      // Reset everything
+      belowNavbar.style.display = 'none';
+      belowNavbar2.style.display = 'none';
+      belowNavbar3.style.display = 'none';
+      removeActive();
+
+      // Toggle
+      if (!isOpen) {
+        belowNavbar.style.display = 'block';
+        this.classList.add('active');
+      }
+    });
+  });
+
+  // SECOND MENU
+  menuLinks2.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const isOpen = belowNavbar2.style.display === 'block';
+
+      // Reset everything
+      belowNavbar.style.display = 'none';
+      belowNavbar2.style.display = 'none';
+      belowNavbar3.style.display = 'none';
+      removeActive();
+
+      // Toggle
+      if (!isOpen) {
+        belowNavbar2.style.display = 'block';
+        this.classList.add('active');
+      }
+    });
+  });
+
+  // THIRD MENU
+  menuLinks3.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const isOpen = belowNavbar3.style.display === 'block';
+
+      // Reset everything
+      belowNavbar.style.display = 'none';
+      belowNavbar2.style.display = 'none';
+      belowNavbar3.style.display = 'none';
+      removeActive();
+
+      // Toggle
+      if (!isOpen) {
+        belowNavbar3.style.display = 'block';
+        this.classList.add('active');
+      }
+    });
+  });
+</script>
+
+
+
+</body>
+</html>

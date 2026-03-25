@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews Slider</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --primary-green: #0fa871;
+            --dark-text: #222;
+            --muted-text: #999;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reviews-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 15px;
+        }
+
+        .reviews-card {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            padding: 40px 60px;
+            position: relative;
+        }
+
+        /* Green semi circle background like second image */
+        .reviews-card::before {
+            /* big green curved background like the dribbble shot */
+            content: "";
+            position: absolute;
+            left: -55%;
+            top: 10%;
+            width: 95%;
+            height: 190%;
+            background: radial-gradient(circle at left center, #1cbf84 0%, #0a8d5d 55%, #0a8d5d 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .reviews-heading {
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: var(--dark-text);
+        }
+
+        .reviews-heading-bar {
+            width: 46px;
+            height: 4px;
+            border-radius: 999px;
+            background: var(--primary-green);
+            margin-bottom: 16px;
+        }
+
+        /* Left vertical swiper (avatars + names) */
+        .thumbs-swiper {
+            height: 280px;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        /* Curved arc behind avatars */
+
+        .thumbs-swiper::before {
+    content: "";
+    position: absolute;
+    left: -328px;
+    top: -60px;
+    width: 409px;
+    height: 400px;
+    border-radius: 50% 0 0 50%;
+    border: 2px solid rgba(27, 27, 27, 0.75);
+    border-right: none;
+    opacity: 0.8;
+    transform: rotateY(180deg);
+}
+
+        .thumbs-swiper .swiper-slide {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .thumbs-swiper .swiper-slide-thumb-active,
+        .thumbs-swiper .swiper-slide-active {
+            opacity: 1;
+            transform: translateX(50px);
+        }
+
+        .thumb-avatar-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .thumb-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        .thumb-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-rating {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            background: #ffffff;
+            border-radius: 999px;
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            color: var(--muted-text);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .thumb-rating-star {
+            width: 11px;
+            height: 11px;
+            background: var(--primary-green);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%,
+                    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+                    2% 35%, 39% 35%);
+        }
+
+        .thumb-info-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #000;
+        }
+
+        .thumb-info-meta {
+            font-size: 11px;
+            color: #000;
+        }
+
+        /* Right side content */
+        .review-content {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .review-quote-mark {
+            font-size: 72px;
+            line-height: 0.6;
+            color: #c7ccd7;
+            font-family: "Georgia", "Times New Roman", serif;
+        }
+
+        .review-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .review-author {
+            margin-top: 24px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .review-role {
+            font-size: 13px;
+            color: var(--muted-text);
+        }
+
+        /* Only active slide text visible */
+        .main-swiper .swiper-slide {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .main-swiper .swiper-slide-active {
+            opacity: 1;
+        }
+
+        @media (max-width: 991.98px) {
+            .reviews-card {
+                padding: 28px 22px;
+            }
+
+            .review-content {
+                padding-left: 0;
+                margin-top: 30px;
+            }
+
+            .reviews-card::before {
+                left: -55%;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reviews-wrapper">
+        <div class="container">
+            <div class="reviews-card">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5 text-white">
+                        <div class="reviews-heading-bar"></div>
+                        <h2 class="reviews-heading">Customer Reviews</h2>
+
+                        <!-- Thumbs Swiper -->
+                        <div class="swiper thumbs-swiper">
+                            <div class="swiper-wrapper">
+                                <!-- Slide 1 -->
+                                <div class="swiper-slide">
+                                    <div class="thumb-avatar-wrapper">
+                                        <div class="thumb-avatar">
+                                            <!-- Replace with your own images -->
+                                            <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=120"
+                                                alt="Edward Alexander">
+                                        </div>
+                                        <div class="thumb-rating">
+                                            <span class="thumb-rating-star"></span>
+                                            <span>4.9</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="thumb-info-name">Edward Alexander</div>
+                                        <div class="thumb-info-meta">4.9 on 29 Aug, 2017</div>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 2 -->
+                                <div class="swiper-slide">
+                                    <div class="thumb-avatar-wrapper">
+                                        <div class="thumb-avatar">
+                                            <img src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=120"
+                                                alt="Diana Johnston">
+                                        </div>
+                                        <div class="thumb-rating">
+                                            <span class="thumb-rating-star"></span>
+                                            <span>4.9</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="thumb-info-name">Diana Johnston</div>
+                                        <div class="thumb-info-meta">4.9 on 29 Aug, 2017</div>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 3 -->
+                                <div class="swiper-slide">
+                                    <div class="thumb-avatar-wrapper">
+                                        <div class="thumb-avatar">
+                                            <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=120"
+                                                alt="Lauren Contreras">
+                                        </div>
+                                        <div class="thumb-rating">
+                                            <span class="thumb-rating-star"></span>
+                                            <span>4.9</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="thumb-info-name">Lauren Contreras</div>
+                                        <div class="thumb-info-meta">4.9 on 29 Aug, 2017</div>
+                                    </div>
+                                </div>
+
+                                  <!-- Slide 4 -->
+                                  <div class="swiper-slide">
+                                    <div class="thumb-avatar-wrapper">
+                                        <div class="thumb-avatar">
+                                            <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=120"
+                                                alt="Lauren Contreras">
+                                        </div>
+                                        <div class="thumb-rating">
+                                            <span class="thumb-rating-star"></span>
+                                            <span>4.9</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="thumb-info-name">Lauren Contreras</div>
+                                        <div class="thumb-info-meta">4.9 on 29 Aug, 2017</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right content swiper -->
+                    <div class="col-lg-7">
+                        <div class="main-swiper swiper">
+                            <div class="swiper-wrapper">
+                                <!-- Review 1 -->
+                                <div class="swiper-slide">
+                                    <div class="review-content">
+                                        <div class="review-quote-mark">“</div>
+                                        <div class="review-text">
+                                            Overall pleasurable experience. Pay a little first and pay a little
+                                            during the development of the app as milestones are achieved, which made
+                                            me feel very confident and comfortable. Seamless and easy process.
+                                        </div>
+                                        <div class="review-author">Edward Alexander</div>
+                                        <div class="review-role">Product Owner, Fintech Startup</div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 2 -->
+                                <div class="swiper-slide">
+                                    <div class="review-content">
+                                        <div class="review-quote-mark">“</div>
+                                        <div class="review-text">
+                                            Been working with appscrip for a number of years now with a variety of
+                                            different apps. They have my recommendation. They are a great team and
+                                            always deliver above expectations.
+                                        </div>
+                                        <div class="review-author">Diana Johnston</div>
+                                        <div class="review-role">Founder, Social Media Platform</div>
+                                    </div>
+                                </div>
+
+                                <!-- Review 3 -->
+                                <div class="swiper-slide">
+                                    <div class="review-content">
+                                        <div class="review-quote-mark">“</div>
+                                        <div class="review-text">
+                                            Fantastic communication and very transparent during every stage of the
+                                            project. Their design inputs gave our product a very polished feel and
+                                            the development process was extremely smooth.
+                                        </div>
+                                        <div class="review-author">Lauren Contreras</div>
+                                        <div class="review-role">Marketing Lead, SaaS Company</div>
+                                    </div>
+                                </div>
+
+                                 <!-- Review 4 -->
+                                 <div class="swiper-slide">
+                                    <div class="review-content">
+                                        <div class="review-quote-mark">“</div>
+                                        <div class="review-text">
+                                            Fantastic communication and very transparent during every stage of the
+                                            project. Their design inputs gave our product a very polished feel and
+                                            the development process was extremely smooth.
+                                        </div>
+                                        <div class="review-author">Lauren Contreras</div>
+                                        <div class="review-role">Marketing Lead, SaaS Company</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional for layout, needed only if you use components) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // Thumbs swiper (left side vertical list)
+        const thumbsSwiper = new Swiper('.thumbs-swiper', {
+            direction: 'vertical',
+            slidesPerView: 3,
+            spaceBetween: 26,
+            centeredSlides: true,
+            slideToClickedSlide: true,
+            watchSlidesProgress: true,
+            loop: true,
+            loopedSlides: 4, // keep in sync with main swiper
+            breakpoints: {
+                0: {
+                    direction: 'horizontal',
+                    slidesPerView: 3,
+                    centeredSlides: false,
+                },
+                768: {
+                    direction: 'vertical',
+                    slidesPerView: 3,
+                    centeredSlides: true,
+                }
+            }
+        });
+
+        // Main content swiper (right side text)
+        const mainSwiper = new Swiper('.main-swiper', {
+            effect: 'slide',
+            autoHeight: true,
+            allowTouchMove: true,
+            loop: true,
+            loopedSlides: 4, // same number of original slides
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            thumbs: {
+                swiper: thumbsSwiper
+            }
+        });
+
+        // Extra safety: when main changes (autoplay/drag), move thumbs to matching looped index
+        mainSwiper.on('slideChange', () => {
+            thumbsSwiper.slideToLoop(mainSwiper.realIndex);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Card</title>
+    <style> 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;position: relative;
+        } */
+
+        table {
+            border-radius: 10px;
+            width: 100%;
+            position: relative;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left;
+        }
+
+        td {
+            padding: 15px;
+        }
+
+        .image-cell {
+            width: 200px;
+            background: url("https://nians.com/wp-content/uploads/2025/10/transparent_small.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0px;
+            height: 160px;
+        }
+
+        .image-cell img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            position: relative;
+            right: 40px;
+            left: -10px;
+            object-fit: cover;
+        }
+
+        .details-cell {
+            width: 445px;
+            /* background: url("https://technians.com/wp-content/uploads/2025/09/grey-vector.png"); */
+            background: url("https://nians.com/wp-content/uploads/2025/10/right_bg.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            padding: 30px 0px 10px 0px;
+            padding-left: 0px;
+            height: 160px;
+            /* float: right; */
+        }
+
+        .details-cell h1 {
+            font-size: 26px;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 5px;
+            padding-top: 0px;
+        }
+
+        .role {
+            font-size: 11px;
+            color: #fff;
+            margin-bottom: 0px;
+            /* background: #1BB2CD; */
+            padding: 0px 5px;
+            width: fit-content;
+            border-radius: 1px;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info p {
+            margin: 0;
+            color: #002A54 !important;
+            font-size: 10px;
+            padding: 5px 0px 0px;
+            font-weight: 600;
+        }
+
+        .website a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .social {
+            margin-top: 0px;
+            float: right;
+            padding-top: 3px;
+            padding-right: 22px;
+        }
+
+        .social a {
+            margin-right: 0px;
+        }
+
+        .social img {
+            width: 15px;
+            height: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            /* justify-content: space-between; */
+            list-style: none;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 5px;
+        }
+
+        .contact-info li {
+            border-left: 1px solid #1DB7D1;
+            padding: 0px 10px 2px 15px;
+            /* display: flex;
+    flex-direction: column;
+    gap: 8px; */
+        }
+
+
+        .contact-info img {
+            margin-right: 5px;
+            position: relative;
+            top: 3px;
+            padding: 1px;
+        }
+
+        tr {
+            position: relative;
+            z-index: 9;
+        }
+
+        .bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            /* background: url("https://technians.com/wp-content/uploads/2025/09/Rectangle-6030.png"); */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left;
+            opacity: 1;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+         <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Card</title>
+    <style> 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;position: relative;
+        } */
+
+        table {
+            border-radius: 10px;
+            width: 100%;
+            position: relative;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left;
+        }
+
+        td {
+            padding: 15px;
+        }
+
+        .image-cell {
+            width: 200px;
+            background: url("https://nians.com/wp-content/uploads/2025/10/transparent_small.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0px;
+            height: 160px;
+        }
+
+        .image-cell img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            position: relative;
+            right: 40px;
+            left: -10px;
+            object-fit: cover;
+        }
+
+        .details-cell {
+            width: 445px;
+            /* background: url("https://technians.com/wp-content/uploads/2025/09/grey-vector.png"); */
+            background: url("https://nians.com/wp-content/uploads/2025/10/right_bg.png");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            padding: 30px 0px 10px 0px;
+            padding-left: 0px;
+            height: 160px;
+            /* float: right; */
+        }
+
+        .details-cell h1 {
+            font-size: 26px;
+            font-weight: 400;
+            color: #000;
+            margin-bottom: 5px;
+            padding-top: 0px;
+        }
+
+        .role {
+            font-size: 11px;
+            color: #fff;
+            margin-bottom: 0px;
+            /* background: #1BB2CD; */
+            padding: 0px 5px;
+            width: fit-content;
+            border-radius: 1px;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info p {
+            margin: 0;
+            color: #002A54 !important;
+            font-size: 10px;
+            padding: 5px 0px 0px;
+            font-weight: 600;
+        }
+
+        .website a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .social {
+            margin-top: 0px;
+            float: right;
+            padding-top: 3px;
+            padding-right: 22px;
+        }
+
+        .social a {
+            margin-right: 0px;
+        }
+
+        .social img {
+            width: 15px;
+            height: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            /* justify-content: space-between; */
+            list-style: none;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 5px;
+        }
+
+        .contact-info li {
+            border-left: 1px solid #1DB7D1;
+            padding: 0px 10px 2px 15px;
+            /* display: flex;
+    flex-direction: column;
+    gap: 8px; */
+        }
+
+
+        .contact-info img {
+            margin-right: 5px;
+            position: relative;
+            top: 3px;
+            padding: 1px;
+        }
+
+        tr {
+            position: relative;
+            z-index: 9;
+        }
+
+        .bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            /* background: url("https://technians.com/wp-content/uploads/2025/09/Rectangle-6030.png"); */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left;
+            opacity: 1;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table background="https://nians.com/wp-content/uploads/2025/10/bharat.png"
+            style="background-size: auto;background-repeat: no-repeat;overflow: hidden;width: 100%;max-width: 650px;min-width: 600px;background-image: url('https://nians.com/wp-content/uploads/2025/10/bharat.png');"
+            width="650" height="250">
+            <tr>
+                <td class="image-cell" style="padding-right: 10px;">
+                    <img src="https://nians.com/wp-content/uploads/2025/10/transparent_small.png" alt="Bharatlal"
+                        style="padding: 10px 10px 0px 0px;width: 130px;">
+                </td>
+                <td class="details-cell">
+                    <h1 style="font-family: 'Poppins', sans-serif;color: #1c8ea3  !important;font-weight: 500;">BHARATLAL</h1>
+                    <span style="display:flex">
+                        <p class="role"
+                            style="font-weight: 100;height: 27px;display: flex; align-items: center;line-height: 27px;background: url('https://nians.com/wp-content/uploads/2025/10/Rectangle-6029.png');">
+                           Executive- Front End, Nians</p><span style="height: 30px;margin-left: 5px;">
+                            <!-- <a
+                                href="https://www.linkedin.com/in/ayushi-yadav-134327147/" style="display: flex;"><img
+                                    src="https://nians.com/wp-content/uploads/2025/10/linkedin-3.png" alt="img"
+                                    height="27" width="25"></a> -->
+                                </span>
+                    </span>
+                    <ul class="contact-info">
+                        <li style="border-left:0px;padding-left: 0px;">
+                            <p class="contact"
+                                style="padding-bottom: 5px;color: #636f7a  !important;display: flex; align-items: flex-end;">
+                                <img src="https://technians.com/wp-content/uploads/2025/09/phone.png" alt="Phone"
+                                    style=" color: hsl(209, 10%, 43%)  !important; color-scheme: light only;border: 1px solid #ebebeb00;border-radius: 3px;background: #ebebeb00;"
+                                    width="10" height="10"> <a style="color: #1c8ea3  !important;border-bottom: none;"
+                                    href="tel:+91-8168629606">+91-8168629606</a></p>
+                        </li>
+                        <li>
+                            <p class="email" style="padding-bottom: 5px;display: flex; align-items: flex-end;"><img
+                                    src="https://technians.com/wp-content/uploads/2025/09/mail.png" alt="Email"
+                                    style=" color: #636f7a  !important; color-scheme: light only;border: 1px solid #ebebeb00;border-radius: 3px;background: #ebebeb00;"
+                                    width="10" height="11"> <a href="mailto:bharatlal.kumar@technians.com"
+                                    style="color: #1c8ea3  !important;border-bottom: none;">bharatlal.kumar@technians.com</a></p>
+                        </li>
+                        <li>
+                            <p class="website"><a href="https://nians.com"
+                                    style="color: #1c8ea3  !important;display: flex; align-items: flex-end;"><img
+                                        src="https://technians.com/wp-content/uploads/2025/09/link.png" alt="Website"
+                                        style=" color: #1c8ea3  !important; color-scheme: light only;border: 1px solid #ebebeb00;border-radius: 3px;background: #ebebeb00;"
+                                        width="10" height="11" /> <span>nians.com</span></a></p>
+                        </li>
+                        </li>
+                    </ul>
+                    <div class="social">
+                        <a href="https://www.facebook.com/Nians.Official">
+                            <img src="https://nians.com/wp-content/uploads/2025/10/facebook.png" alt="Facebook"
+                                style="color-scheme: light only;border: 1px solid #ebebeb;border-radius: 50%;background: #a7afb7;"
+                                width="20" height="20"></a>
+                        <a href="https://www.linkedin.com/company/nians/posts/?feedView=all"><img
+                                src="https://nians.com/wp-content/uploads/2025/10/linkedin.png" alt="LinkedIn"
+                                style="color-scheme: light only;border: 1px solid #ebebeb;border-radius: 50%;background: #a7afb7;"
+                                width="20" height="20"></a>
+                        <a href="https://www.instagram.com/nians.official/"><img
+                                src="https://nians.com/wp-content/uploads/2025/10/instagram.png" alt="Instagram"
+                                style="color-scheme: light only;border: 1px solid #ebebeb;border-radius: 50%;background: #a7afb7;"
+                                width="20" height="20"></a>
+                        <a href="tel:9899920599"><img src="https://nians.com/wp-content/uploads/2025/10/whatsapp.png"
+                                alt="WhatsApp"
+                                style="color-scheme: light only; border: 1px solid #ebebeb;border-radius: 50%;background: #a7afb7;"
+                                width="20" height="20"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
+    </div>
+</body>
+
+</html>

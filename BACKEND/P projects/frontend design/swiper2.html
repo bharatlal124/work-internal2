@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <title>Document</title>
+    <style>
+      .review-section {
+  padding: 120px 0;
+  background: #f6f8fb;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 60px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.08);
+}
+
+.review-title {
+  font-weight: 600;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.review-title::before {
+  content: '';
+  width: 30px;
+  height: 3px;
+  background: #2fa66a;
+  position: absolute;
+  top: -10px;
+}
+
+.curve-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 400px;
+  width: 200px;
+}
+
+/* .avatar-list {
+  position: relative;
+  height: 400px;
+} */
+.avatar-list {
+  position: relative;
+  height: 520px;
+}
+
+.avatar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    top 0.9s cubic-bezier(.4,0,.2,1),
+    left 0.9s cubic-bezier(.4,0,.2,1),
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+
+/* .avatar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 1;
+  transform: scale(.85);
+  transition: all .6s ease;
+} */
+
+.avatar.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.avatar p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.avatar span {
+  font-size: 12px;
+  color: #777;
+}
+
+.review-text {
+  font-size: 22px;
+  font-style: italic;
+  max-width: 560px;
+}
+.avatar {
+  transition:
+    top 0.8s cubic-bezier(.4,0,.2,1),
+    left 0.8s cubic-bezier(.4,0,.2,1),
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+
+    </style>
+</head>
+<body>
+    
+
+   <section class="review-section">
+  <div class="container-fluid">
+    <div class="review-card">
+
+      <h6 class="review-title">Customer Reviews</h6>
+
+      <div class="row align-items-center">
+
+        <!-- LEFT CURVED AVATARS -->
+        <div class="col-md-4 position-relative">
+          <svg class="curve-svg" viewBox="0 0 200 400">
+            <path id="curvePath"
+              d="M150 20 C 40 120, 40 280, 150 380"
+              fill="none"/>
+          </svg>
+
+          <div class="avatar-list">
+            <div class="avatar active">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg">
+              <p>Edward Alexander<br><span>⭐ 4.9 on 29 Aug, 2017</span></p>
+            </div>
+
+            <div class="avatar">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg">
+              <p>Diana Johnston<br><span>⭐ 4.9 on 29 Aug, 2017</span></p>
+            </div>
+
+            <div class="avatar">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg">
+              <p>Lauren Contreras<br><span>⭐ 4.9 on 29 Aug, 2017</span></p>
+            </div>
+            <div class="avatar">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg">
+              <p>Lauren Contreras<br><span>⭐ 4.9 on 29 Aug, 2017</span></p>
+            </div>
+            <div class="avatar">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg">
+              <p>Lauren Contreras<br><span>⭐ 4.9 on 29 Aug, 2017</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="col-md-8">
+          <blockquote class="review-text">
+            “ Overall pleasurable experience. Pay a little first and pay a little
+            during the development of the app as milestones are achieved, which
+            made me feel very confident and comfortable. Seamless and easy process. ”
+          </blockquote>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+
+
+
+<script>
+const avatars = document.querySelectorAll('.avatar');
+const path = document.getElementById('curvePath');
+const pathLength = path.getTotalLength();
+
+/* how many avatars are visible on curve */
+const visible = 5;
+
+/* center index (active slide position) */
+const center = Math.floor(visible / 2);
+
+/* spacing along the curve */
+const step = 0.14;
+
+/* virtual index (keeps moving forward) */
+let tick = 0;
+
+function positionAvatars() {
+  avatars.forEach((el, i) => {
+    const relative = i - tick;
+
+    /* hide items outside visible range */
+    if (relative < -center || relative > center) {
+      el.style.opacity = 0;
+      el.style.transform = 'scale(0.75)';
+      return;
+    }
+
+    const t = 0.15 + (relative + center) * step;
+    const point = path.getPointAtLength(pathLength * t);
+
+    el.style.left = point.x + 'px';
+    el.style.top = point.y + 'px';
+
+    const isActive = relative === 0;
+    el.style.opacity = isActive ? 1 : 0.45;
+    el.style.transform = isActive ? 'scale(1)' : 'scale(0.85)';
+    el.classList.toggle('active', isActive);
+  });
+}
+
+positionAvatars();
+
+setInterval(() => {
+  tick++;
+
+  /* recycle after all slides passed */
+  if (tick > avatars.length + center) {
+    tick = 0;
+  }
+
+  positionAvatars();
+}, 2800);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script>
+const avatars = document.querySelectorAll('.avatar');
+const path = document.getElementById('curvePath');
+const pathLength = path.getTotalLength();
+
+let activeIndex = 0;
+
+/* how many items visible on curve */
+const visibleCount = 3;
+
+/* spacing along curve */
+const spacing = 0.18;
+
+function positionAvatars() {
+  avatars.forEach((el, i) => {
+    const offset = i - activeIndex;
+
+    /* hide items that should not wrap */
+    if (offset < -1 || offset > visibleCount - 1) {
+      el.style.opacity = 0;
+      el.style.transform = 'scale(0.7)';
+      return;
+    }
+
+    const t = 0.35 + offset * spacing;
+    const point = path.getPointAtLength(pathLength * t);
+
+    el.style.left = point.x + 'px';
+    el.style.top = point.y + 'px';
+
+    el.style.opacity = offset === 0 ? 1 : 0.5;
+    el.style.transform = offset === 0 ? 'scale(1)' : 'scale(0.85)';
+
+    el.classList.toggle('active', offset === 0);
+  });
+}
+
+positionAvatars();
+
+setInterval(() => {
+  activeIndex++;
+
+  /* reset index ONLY after last slide fully exits */
+  if (activeIndex > avatars.length - 2) {
+    activeIndex = 0;
+  }
+
+  positionAvatars();
+}, 3000);
+</script> -->
+
+
+
+
+
+
+
+<!-- <script>
+const avatars = document.querySelectorAll('.avatar');
+const path = document.getElementById('curvePath');
+const pathLength = path.getTotalLength();
+let index = 0;
+
+function positionAvatars() {
+  avatars.forEach((el, i) => {
+    const offset = ((i - index + avatars.length) % avatars.length);
+    const point = path.getPointAtLength(
+      pathLength * (0.25 + offset * 0.25)
+    );
+
+    el.style.left = point.x + 'px';
+    el.style.top = point.y + 'px';
+
+    el.classList.toggle('active', offset === 1);
+  });
+}
+
+positionAvatars();
+
+setInterval(() => {
+  index = (index + 1) % avatars.length;
+  positionAvatars();
+}, 3000);
+</script> -->
+
+
+
+</body>
+</html>
