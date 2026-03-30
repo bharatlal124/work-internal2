@@ -1,0 +1,119 @@
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Initialize GSAP MatchMedia
+      let mm = gsap.matchMedia();
+
+      // 2. Wrap your entire logic inside the desktop breakpoint (768px and up)
+      mm.add("(min-width: 768px)", () => {
+          
+          const colors = ['#002A54', '#FFA106', '#1DB7D1'];
+          const ghostBalls = [];
+
+          // The 3 bottom slots you want to fill
+          const endTargets = [
+              document.querySelector(".case_study_box_ball1"), 
+              document.querySelector(".case_study_box_ball2"), 
+              document.querySelector(".case_study_box_ball3")      
+          ];
+          
+          // The left-side accordions
+          const startTargets = document.querySelectorAll(".acc-header");
+
+          // If there are absolutely no start targets or end targets, do nothing
+          if (startTargets.length === 0) return;
+
+          let bridgeTl = gsap.timeline({
+              scrollTrigger: {
+                  trigger: ".tabing-scroll-track", 
+                  start: "bottom 80%", 
+                  endTrigger: endTargets[0] || ".tabing-scroll-track", 
+                  end: "top 30%", 
+                  scrub: 1,
+                  invalidateOnRefresh: true 
+              }
+          });
+
+          // Loop through the 3 end targets directly
+          endTargets.forEach((endTarget, i) => {
+              if (!endTarget) return; // Skip if this specific bottom slot is missing from the HTML
+
+              // THE FIX: If there isn't a matching start target (e.g., only 2 accordions for 3 balls), 
+              // it falls back to using the very last accordion available.
+              const startTarget = startTargets[i] || startTargets[startTargets.length - 1];
+
+              // Create the Ghost Ball
+              let ball = document.createElement('div');
+              ball.classList.add('ghost-ball'); 
+              ball.style.width = '30px';  
+              ball.style.height = '30px'; 
+              ball.style.backgroundColor = colors[i % colors.length];
+              
+              ball.style.position = 'fixed'; 
+              ball.style.top = '0px';   
+              ball.style.left = '0px';  
+              ball.style.borderRadius = '7px'; 
+              ball.style.zIndex = '999999';
+              ball.style.opacity = '0'; 
+              ball.style.pointerEvents = 'none'; 
+              
+              document.body.appendChild(ball);
+              ghostBalls.push(ball);
+
+              // Instantly make them visible ONLY when the scroll timeline begins
+              bridgeTl.to(ball, { opacity: 1, duration: 0.01 }, 0);
+
+              // Animate the ball
+              bridgeTl.fromTo(ball, {
+                  scale: 1,
+                  borderRadius: "7px",
+                  x: () => {
+                      const rect = startTarget.getBoundingClientRect();
+                      return rect.left + 30; 
+                  },
+                  y: () => {
+                      const rect = startTarget.getBoundingClientRect();
+                      return rect.top + (rect.height / 2) - 15; 
+                  }
+              }, {
+                  scale: 1.5,
+                  borderRadius: "50%",
+                  x: () => {
+                      const rect = endTarget.getBoundingClientRect();
+                      return rect.left + (rect.width / 2) - 15; 
+                  },
+                  y: () => {
+                      const rect = endTarget.getBoundingClientRect();
+                      return rect.top - 10; 
+                  },
+                  ease: "power1.out", 
+                  duration: 2
+              }, 0); 
+              
+              // Instantly disappear just before it finishes
+              bridgeTl.to(ball, { opacity: 0, duration: 0.01 }, "-=0.15");
+          });
+
+          // Refresh math on window resize
+          let resizeTimer;
+          const handleResize = () => {
+              clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(() => {
+                  ScrollTrigger.refresh();
+              }, 250);
+          };
+          window.addEventListener("resize", handleResize);
+
+          // 3. CLEANUP FUNCTION
+          return () => {
+              ghostBalls.forEach(ball => {
+                  if (ball.parentNode) {
+                      ball.parentNode.removeChild(ball);
+                  }
+              });
+              window.removeEventListener("resize", handleResize);
+          };
+      });
+  });
+</script>
