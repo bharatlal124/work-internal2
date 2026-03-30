@@ -117,3 +117,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 </script>
+
+
+//ON live added script 
+
+<script>
+document.addEventListener("DOMContentLoaded", () => { gsap.registerPlugin(ScrollTrigger);let mm = gsap.matchMedia();mm.add("(min-width: 768px)", () => {const colors = ['#002A54', '#FFA106', '#1DB7D1'];const ghostBalls = [];const endTargets = [document.querySelector(".case_study_box_ball1"), document.querySelector(".case_study_box_ball2"), document.querySelector(".case_study_box_ball3") ];const startTargets = document.querySelectorAll(".acc-header");if (startTargets.length === 0) return;
+let bridgeTl = gsap.timeline({scrollTrigger: {trigger: ".tabing-scroll-track", start: "bottom 80%", endTrigger: endTargets[0] || ".tabing-scroll-track", end: "top 30%", scrub: 1,invalidateOnRefresh: true }});endTargets.forEach((endTarget, i) => {
+if (!endTarget) return; const startTarget = startTargets[i] || startTargets[startTargets.length - 1];let ball = document.createElement('div');ball.classList.add('ghost-ball'); ball.style.width = '30px';  ball.style.height = '30px';  ball.style.backgroundColor = colors[i % colors.length];ball.style.position = 'fixed'; ball.style.top = '0px';   ball.style.left = '0px';  ball.style.borderRadius = '7px'; ball.style.zIndex = '999999';ball.style.opacity = '0';  ball.style.pointerEvents = 'none'; document.body.appendChild(ball); ghostBalls.push(ball);
+bridgeTl.to(ball, { opacity: 1, duration: 0.01 }, 0);bridgeTl.fromTo(ball, {scale: 1,borderRadius: "7px",x: () => {const rect = startTarget.getBoundingClientRect();return rect.left + 30; },y: () => {const rect = startTarget.getBoundingClientRect();return rect.top + (rect.height / 2) - 15; }}, {scale: 1.5,borderRadius: "50%",x: () => {const rect = endTarget.getBoundingClientRect();return rect.left + (rect.width / 2) - 15; },
+y: () => {const rect = endTarget.getBoundingClientRect(); return rect.top - 10; },ease: "power1.out", duration: 2}, 0); bridgeTl.to(ball, { opacity: 0, duration: 0.01 }, "-=0.15");});
+let resizeTimer;const handleResize = () => {clearTimeout(resizeTimer);resizeTimer = setTimeout(() => {ScrollTrigger.refresh();}, 250);};window.addEventListener("resize", handleResize);
+return () => {ghostBalls.forEach(ball => { if (ball.parentNode) { ball.parentNode.removeChild(ball);}}); window.removeEventListener("resize", handleResize);};});});
+</script>
+
+
+//OLD live script 
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {gsap.registerPlugin(ScrollTrigger);let mm = gsap.matchMedia();mm.add("(min-width: 768px)", () => {const colors = ['#002A54', '#FFA106', '#1DB7D1'];const ghostBalls = [];for (let i = 0; i < 3; i++) {let ball = document.createElement('div');ball.classList.add('ghost-ball'); ball.style.width = '30px';  ball.style.height = '30px'; ball.style.backgroundColor = colors[i];ball.style.position = 'fixed'; ball.style.top = '0px';   ball.style.left = '0px';  ball.style.borderRadius = '7px'; ball.style.zIndex = '999999';ball.style.opacity = '0';ball.style.pointerEvents = 'none'; document.body.appendChild(ball);ghostBalls.push(ball);}function initGhostTransition() {const endTargets = [document.querySelector(".case_study_box_ball1"),document.querySelector(".case_study_box_ball2"),document.querySelector(".case_study_box_ball3")];const startTargets = document.querySelectorAll(".acc-header");if (!endTargets[0] || !startTargets.length) return;let bridgeTl = gsap.timeline({scrollTrigger: {trigger: ".tabing-scroll-track", start: "bottom 80%", endTrigger: endTargets[0],end: "top 30%", scrub: 1,invalidateOnRefresh: true }});ghostBalls.forEach((ball, i) => {if (!endTargets[i] || !startTargets[i]) return;bridgeTl.to(ball, { opacity: 1, duration: 0.01 }, 0);bridgeTl.fromTo(ball, {scale: 1,borderRadius: "7px",x: () => {const rect = startTargets[i].getBoundingClientRect();return rect.left + 30; },y: () => {const rect = startTargets[i].getBoundingClientRect();return rect.top + (rect.height / 2) - 15; }}, {scale: 1.5,borderRadius: "50%",x: () => {const rect = endTargets[i].getBoundingClientRect();return rect.left + (rect.width / 2) - 15; },y: () => {const rect = endTargets[i].getBoundingClientRect();return rect.top - 10; },ease: "power1.out", duration: 2}, 0); bridgeTl.to(ball, { opacity: 0, duration: 0.01 }, "-=0.15");});}initGhostTransition();let resizeTimer;const handleResize = () => {clearTimeout(resizeTimer);resizeTimer = setTimeout(() => {ScrollTrigger.refresh();}, 250);}; window.addEventListener("resize", handleResize); return () => {ghostBalls.forEach(ball => {if (ball.parentNode) {ball.parentNode.removeChild(ball);}}); window.removeEventListener("resize", handleResize);};});});
+</script>
